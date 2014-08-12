@@ -8,7 +8,7 @@ namespace libede
   class format
   {
   public:
-    format( std::string const& fmt )
+    explicit format( std::string const& fmt )
       : formatter_(fmt)
     {}
 
@@ -27,6 +27,13 @@ namespace libede
   private:
     boost::format formatter_;
   };
+
+  template< typename OSTREAM_TYPE >
+  OSTREAM_TYPE& operator<<( OSTREAM_TYPE& os , format const& formatter )
+  {
+    return os << formatter.operator std::string();
+  }
+
 }
 
 #endif
